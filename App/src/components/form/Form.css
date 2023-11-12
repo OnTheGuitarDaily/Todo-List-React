@@ -1,0 +1,19 @@
+.Form{
+    position: absolute;
+    bottom: 0;
+}
+
+.Main{
+    position: relative;
+    height: 76vh;
+}
+
+.Section{
+    height: 65vh;
+    overflow-y: scroll;
+}
+
+ol li {
+    list-style: decimal;
+    list-style-position: inside;
+}
