@@ -13,10 +13,13 @@ import ButtonComponent from "../button/Button";
 
 
 export default function FormComponent() {
-  const { editTodo, addTodo, deleteTodo, toggleTodo, filteredTodos } = useContext(TodoContext);
+  const { state, editTodo, addTodo, deleteTodo, toggleTodo, filteredTodos } = useContext(TodoContext);
   const [validation, setValidation] = useState(false)
   const [editValidation, setEditValidation] = useState(false)
   const [editingTodoId, setEditingTodoId] = useState(null);
+  
+
+
 
   const handleAddTodo = (e) => {
     e.preventDefault();

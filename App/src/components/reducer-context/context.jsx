@@ -9,10 +9,18 @@ const initialState = {
     todos: [] 
 }
 
+const getInitialData = () => {
+  const data = JSON.parse(localStorage.getItem('todos'));
+  return data && data.todos ? data : { todos: [] };
+};
+
  export default function TodoProvider({children}){
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, dispatch] = useReducer(reducer, getInitialData());
     const [filter, setFilter] = useState('all')
 
+    useEffect(() => {
+      localStorage.setItem('todos', JSON.stringify(state));
+    }, [state]);
 
     const applyFilter = () => {
       switch (filter) {
