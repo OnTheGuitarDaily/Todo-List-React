@@ -6,11 +6,16 @@ import "./Nav.css";
 import Swal from 'sweetalert2'
 
 export default function NavBar() {
-  const { setFilter, clearTodo } = useContext(TodoContext);
+  const { state, setFilter, clearTodo } = useContext(TodoContext);
 
-  const handleFilter = (filter) => {
-    setFilter(filter);
-  };
+const handleFilter= (filter) =>{
+  if(state.todos.length === 0 ){
+    setFilter('all')
+  }else{
+    setFilter(filter)
+  }
+  
+}
 
 const handleClearTodo = () => {
   Swal.fire({

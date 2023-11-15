@@ -1,4 +1,4 @@
-import { createContext, useReducer, useState, useEffect } from "react";
+import { createContext, useReducer,useState, useEffect } from "react";
 import reducer, { ACTIONS } from "../reducer-context/reducer";
 import {v4 as uuid} from 'uuid'
 
@@ -11,7 +11,7 @@ const initialState = {
 
  export default function TodoProvider({children}){
     const [state, dispatch] = useReducer(reducer, initialState);
-    const [filter, setFilter] = useState('all');
+    const [filter, setFilter] = useState('all')
 
 
     const applyFilter = () => {
@@ -24,7 +24,6 @@ const initialState = {
           return state.todos;
       }
     };
-
 
   const addTodo = (todoText) => {
     dispatch({
@@ -55,15 +54,27 @@ const initialState = {
     })
   }
 
+const editTodo = (todoId, todoText) => {
+  dispatch({
+    type: ACTIONS.EDIT_TODO,
+    payload:{
+      id: todoId,
+      name: todoText
+    }
+  })
+}
+
   const clearTodo = () => {
     dispatch({
       type: ACTIONS.CLEAR_COMPLETED
     })
   }
+
+
     
 
   return(
-        <TodoContext.Provider value={{ state, addTodo, deleteTodo, toggleTodo, setFilter, clearTodo, filteredTodos: applyFilter() }}>
+        <TodoContext.Provider value={{ state, addTodo, deleteTodo, toggleTodo, editTodo, clearTodo, filter, setFilter, filteredTodos: applyFilter()}}>
             {children}
         </TodoContext.Provider>
   )
