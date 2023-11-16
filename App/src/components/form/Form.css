@@ -10,11 +10,11 @@
 
 .Main{
     position: relative;
-    height: 66vh;
+    height: 68vh;
 }
 
 ol{
-    height: 44vh;
+    height: 42vh;
     overflow-y: scroll;
 }
 li{
