@@ -1,3 +1,8 @@
+/* *{
+    border: 1px dashed black;
+} */
+
+
 .Form{
     position: absolute;
     bottom: 0;
@@ -5,15 +10,14 @@
 
 .Main{
     position: relative;
-    height: 76vh;
+    height: 80vh;
 }
 
-.Section{
-    height: 65vh;
+ol{
+    height: 54vh;
     overflow-y: scroll;
 }
-
-ol li {
-    list-style: decimal;
-    list-style-position: inside;
+li{
+    font-size: 20px;
+    border-bottom: 1px solid grey;
 }

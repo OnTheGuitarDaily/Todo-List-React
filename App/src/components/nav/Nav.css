@@ -1,4 +1,50 @@
 .NavBar{
     background-color: #00A9FF;
     color: white;
+    overflow: hidden;
+}
+
+body {
+    overflow: hidden;
+}
+.displayButton{
+    display: flex;
+}
+
+.menuIcon{
+    z-index: 1000;
+    display: block;
+}
+.menuButtons{
+    background-color: #89CFF3;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    z-index: 100;
+    right: 0;
+    border-radius: 16px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    animation: slidein 0.2s ease-in-out forwards;
+}
+
+@keyframes slidein {
+    from {
+        right: -100%;
+    }
+  
+    to {
+      right: 0%;
+    }
+  }
+
+@media (min-width: 650px) {
+    .menuIcon {
+        display: none !important
+    }
+}
+@media (max-width: 650px) {
+    .displayButton{
+        display: none;
+    }
 }

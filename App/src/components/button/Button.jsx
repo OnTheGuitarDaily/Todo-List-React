@@ -1,12 +1,11 @@
 import Button from "@mui/material/Button";
 
-export default function ButtonComponent({ type, onClick, child, icon, color }) {
+export default function ButtonComponent({ type, onClick, child, border = '1px solid white', color }) {
   return (
     <Button
-    type = {type}
+      type ={type}
       onClick={onClick}
-      style={{ border: "1px solid", color: color }}
-      startIcon={icon}
+      style={{border: border,color: color }}
       variant="outlined"
     >
       {child}

@@ -4,7 +4,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import { TodoContext } from "../reducer-context/context";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import Swal from 'sweetalert2'
 import '../form/Form.css'
 import ButtonComponent from "../button/Button";
@@ -13,7 +13,7 @@ import ButtonComponent from "../button/Button";
 
 
 export default function FormComponent() {
-  const { state, editTodo, addTodo, deleteTodo, toggleTodo, filteredTodos } = useContext(TodoContext);
+  const { editTodo, addTodo, deleteTodo, toggleTodo, filteredTodos } = useContext(TodoContext);
   const [validation, setValidation] = useState(false)
   const [editValidation, setEditValidation] = useState(false)
   const [editingTodoId, setEditingTodoId] = useState(null);
@@ -71,11 +71,11 @@ export default function FormComponent() {
 
   return (
     <main className="Main col-12 mx-auto">
-      <section className="Section col-12 my-5 mx-auto">
+      <section className="Section col-10 my-5 mx-auto">
         <h1 className="mb-5">{filteredTodos.length > 0 ? filteredTodos.length + 'Tasks' : <p className="mt-5" style={{textAlign: 'center'}}>There are no task</p>} </h1>
-        <ol>
+        <ol className="col-12 col-md-10 mx-auto">
             {filteredTodos.map(todo => 
-              <li key={todo.id} className="d-flex col-10 justify-content-between mx-auto my-4">
+              <li key={todo.id} style = {{ borderBottomRightRadius: editingTodoId === todo.id ? '' : '16px'}} className=" mb-3 p-2">
                 {editingTodoId === todo.id ?  
                 <form className="col-12" onSubmit={(e) => {
                   e.preventDefault();
@@ -88,35 +88,35 @@ export default function FormComponent() {
                     setEditValidation(true)
                   }
                 }}>
-                  <div className="d-flex gap-5">
-                  <TextField autoFocus className="col-9" variant="standard" defaultValue={todo.name} />
-                  <ButtonComponent type ='submit' child='Submit'/>
+                  <div className="col-12 d-flex justify-content-between">
+                    <TextField autoFocus className="col-8"  variant="standard" defaultValue={todo.name} />
+                    <ButtonComponent border='1px solid #00A9FF' type ='submit' child='Submit'/>
                   </div>
                   {editValidation && (
                     <p style={{ color: "red", margin: "5px 0", fontSize: "14px" }}>Please fill this field</p>
                   )}
                 </form>:
-                <>
-                <h3 style={{ textDecoration: todo.status ? "line-through" : "none", color: todo.status ? "grey" : "black" }}>
-                  {todo.name}
-                </h3>
-                 <div>
-                 <Checkbox checked={todo.status} onChange={() => handleToggleTodo(todo.id)} />
-                 <IconButton onClick={() => handleDeleteTodo(todo.id)} aria-label="delete">
-                   <DeleteIcon />
-                 </IconButton>
-                 <IconButton onClick={() => setEditingTodoId(todo.id)} aria-label="delete">
-                   <EditIcon/> 
-                 </IconButton>
-               </div>
-               </>
+                <div className="d-flex col-12 justify-content-between align-items-center">
+                    <h3 style={{ textDecoration: todo.status ? "line-through" : "none", color: todo.status ? "grey" : "black" }}>
+                      {todo.name}
+                    </h3>
+                    <div>
+                    <Checkbox checked={todo.status} onChange={() => handleToggleTodo(todo.id)} />
+                    <IconButton onClick={() => handleDeleteTodo(todo.id)} aria-label="delete">
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton onClick={() => setEditingTodoId(todo.id)} aria-label="delete">
+                      <EditIcon/> 
+                    </IconButton>
+                  </div>
+                </div>
                 }
               </li>
             )}
         </ol>
       </section>
-      <form className="Form col-12 p-3 mx-auto" onSubmit={handleAddTodo}>
-        <TextField className="col-12" id="standard-basic" label="Enter your todos" variant="standard" />
+      <form className="Form col-12 p-3 d-flex justify-content-center" onSubmit={handleAddTodo}>
+        <TextField className="col-10 col-md-6" id="standard-basic" label="Enter your todos" variant="standard" />
         {validation && (
           <p style={{ color: "red", margin: "5px 0", fontSize: "14px" }}>Please fill this field</p>
         )}
