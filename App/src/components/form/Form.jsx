@@ -115,7 +115,7 @@ export default function FormComponent() {
             )}
         </ol>
       </section>
-      <form className="Form col-12 p-3 d-flex justify-content-center" onSubmit={handleAddTodo}>
+      <form className="Form col-12 p-3 d-flex flex-wrap justify-content-center" onSubmit={handleAddTodo}>
         <TextField className="col-10 col-md-6" id="standard-basic" label="Enter your todos" variant="standard" />
         {validation && (
           <p style={{ color: "red", margin: "5px 0", fontSize: "14px" }}>Please fill this field</p>
