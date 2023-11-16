@@ -61,6 +61,11 @@ const getInitialData = () => {
       }
     })
   }
+  const toggleAllTodo = () => {
+    dispatch({
+      type: ACTIONS.TOGGLE_ALL_STATUS,
+    })
+  }
 
 const editTodo = (todoId, todoText) => {
   dispatch({
@@ -82,7 +87,7 @@ const editTodo = (todoId, todoText) => {
     
 
   return(
-        <TodoContext.Provider value={{ state, addTodo, deleteTodo, toggleTodo, editTodo, clearTodo, filter, setFilter, filteredTodos: applyFilter()}}>
+        <TodoContext.Provider value={{ state, addTodo, deleteTodo,toggleAllTodo, toggleTodo, editTodo, clearTodo, filter, setFilter, filteredTodos: applyFilter()}}>
             {children}
         </TodoContext.Provider>
   )

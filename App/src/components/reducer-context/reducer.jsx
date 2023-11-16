@@ -3,6 +3,7 @@ export const ACTIONS = {
     DELETE_TODO: 'delete',
     EDIT_TODO: 'edit',
     TOGGLE_TODO_STATUS: 'toggle',
+    TOGGLE_ALL_STATUS: 'al',
     CLEAR_COMPLETED: 'clear'
   
 }
@@ -36,16 +37,16 @@ export default function reducer(state, action){
                         : todo
                 ),
             };
+        case ACTIONS.TOGGLE_ALL_STATUS:
+            return {
+                ...state,
+                todos: state.todos.map((todo) => todo = {...todo , status: !todo.status}) 
+            };
         case ACTIONS.CLEAR_COMPLETED:
             return{
                 ...state,
                 todos: state.todos.filter((todo) => !todo.status),
             }
-        case ACTIONS.SET_TODOS:
-            return {
-                ...state,
-                todos: action.payload,
-            };
         default:
             return state
     }

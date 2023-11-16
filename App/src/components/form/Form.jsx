@@ -13,7 +13,7 @@ import ButtonComponent from "../button/Button";
 
 
 export default function FormComponent() {
-  const { editTodo, addTodo, deleteTodo, toggleTodo, filteredTodos } = useContext(TodoContext);
+  const { editTodo, addTodo, deleteTodo, toggleTodo,toggleAllTodo, filteredTodos } = useContext(TodoContext);
   const [validation, setValidation] = useState(false)
   const [editValidation, setEditValidation] = useState(false)
   const [editingTodoId, setEditingTodoId] = useState(null);
@@ -68,11 +68,19 @@ export default function FormComponent() {
   const handleToggleTodo = (todoId) => {
     toggleTodo(todoId);
   };
+  const handleToggleAllTodo = () => {
+    toggleAllTodo();
+  };
 
   return (
     <main className="Main col-12 mx-auto">
       <section className="Section col-10 my-5 mx-auto">
-        <h1 className="mb-5">{filteredTodos.length > 0 ? filteredTodos.length + 'Tasks' : <p className="mt-5" style={{textAlign: 'center'}}>There are no task</p>} </h1>
+      {filteredTodos.length > 0 ? 
+      <div className="col-12 d-flex justify-content-between align-items-center">
+        <h1 className="mb-5">{filteredTodos.length} Tasks</h1>
+        <ButtonComponent onClick={handleToggleAllTodo} border='1px solid #00A9FF' child='Mark all'/>
+      </div> : 
+      <h1 className="mt-5" style={{textAlign: 'center'}}>There are no task</h1>}
         <ol className="col-12 col-md-10 mx-auto">
             {filteredTodos.map(todo => 
               <li key={todo.id} style = {{ borderBottomRightRadius: editingTodoId === todo.id ? '' : '16px'}} className=" mb-3 p-2">
