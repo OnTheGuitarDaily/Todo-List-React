@@ -8,6 +8,7 @@ import { useContext, useState } from "react";
 import Swal from 'sweetalert2'
 import '../form/Form.css'
 import ButtonComponent from "../button/Button";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 
 
@@ -17,6 +18,7 @@ export default function FormComponent() {
   const [validation, setValidation] = useState(false)
   const [editValidation, setEditValidation] = useState(false)
   const [editingTodoId, setEditingTodoId] = useState(null);
+  const [tools, setTools] = useState(false)
   
 
 
@@ -72,6 +74,10 @@ export default function FormComponent() {
     toggleAllTodo();
   };
 
+const handleTools = () => {
+  setTools(!tools)
+}
+
   return (
     <main className="Main col-12 mx-auto">
       <section className="Section col-10 my-5 mx-auto">
@@ -108,7 +114,22 @@ export default function FormComponent() {
                     <h3 style={{ textDecoration: todo.status ? "line-through" : "none", color: todo.status ? "grey" : "black" }}>
                       {todo.name}
                     </h3>
-                    <div>
+                    <div className="toolIcon">
+                      <Checkbox  checked={todo.status} onChange={() => handleToggleTodo(todo.id)} />
+                      <IconButton onClick={handleTools} aria-label="delete">
+                        <MoreVertIcon />
+                      </IconButton>
+                    </div>
+                    {tools && <div className="toolDiv">
+                      <button onClick={handleTools} className="closeBtn">x</button>
+                          <IconButton onClick={() => handleDeleteTodo(todo.id)} aria-label="delete">
+                          <DeleteIcon />
+                        </IconButton>
+                        <IconButton onClick={() => setEditingTodoId(todo.id)} aria-label="delete">
+                          <EditIcon/> 
+                        </IconButton>
+                    </div> }
+                    <div className="displayButton">
                     <Checkbox checked={todo.status} onChange={() => handleToggleTodo(todo.id)} />
                     <IconButton onClick={() => handleDeleteTodo(todo.id)} aria-label="delete">
                       <DeleteIcon />

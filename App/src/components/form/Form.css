@@ -20,4 +20,48 @@ ol{
 li{
     font-size: 20px;
     border-bottom: 1px solid grey;
+    position: relative;
 }
+
+@media (min-width: 650px) {
+    .toolIcon {
+        display: none !important
+    }
+}
+@media (max-width: 650px) {
+    .displayButton{
+        display: none;
+    }
+}
+.closeBtn{
+    background-color: grey;
+    color: white;
+    border-radius: 50%;
+    border: none;
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+    position: absolute;
+    top: -18%;
+    left: -14%;
+}
+.toolDiv{
+    background-color: #89CFF3;
+    border-radius: 16px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+position: absolute;
+right: 0;
+z-index: 1000;
+animation: slidein 0.2s ease-in-out forwards;
+}
+
+@keyframes slidein {
+    from {
+        right: -100%;
+    }
+  
+    to {
+      right: 0%;
+    }
+  }

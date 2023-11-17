@@ -13,7 +13,6 @@ body {
 
 .menuIcon{
     z-index: 1000;
-    display: block;
 }
 .menuButtons{
     background-color: #89CFF3;
