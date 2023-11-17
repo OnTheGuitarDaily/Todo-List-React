@@ -17,7 +17,6 @@ const handleFilter= (filter) =>{
   }else{
     setFilter(filter)
   }
-  
 }
 
 const handleMenuClick = () => {
