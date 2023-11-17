@@ -1,6 +1,7 @@
 export const ACTIONS = {
     ADD_TODO: 'add',
     DELETE_TODO: 'delete',
+    DELETE_ALL_TODO: 'deleteAll',
     EDIT_TODO: 'edit',
     TOGGLE_TODO_STATUS: 'toggle',
     TOGGLE_ALL_STATUS: 'al',
@@ -20,6 +21,11 @@ export default function reducer(state, action){
             return {
                 ...state,
                 todos: state.todos.filter((todo) => todo.id !== action.payload.id),
+            };
+        case ACTIONS.DELETE_ALL_TODO:
+            return {
+                ...state,
+                todos: []
             };
         case ACTIONS.EDIT_TODO:
             return{

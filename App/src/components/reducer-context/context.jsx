@@ -5,9 +5,6 @@ import {v4 as uuid} from 'uuid'
 
 export const TodoContext = createContext(reducer)
 
-const initialState = {
-    todos: [] 
-}
 
 const getInitialData = () => {
   const data = JSON.parse(localStorage.getItem('todos'));
@@ -52,6 +49,12 @@ const getInitialData = () => {
       }
     })
   }
+  const deleteAllTodo = () => {
+    dispatch({
+      type: ACTIONS.DELETE_ALL_TODO,
+    
+    })
+  }
 
   const toggleTodo = (todoId) => {
     dispatch({
@@ -87,7 +90,7 @@ const editTodo = (todoId, todoText) => {
     
 
   return(
-        <TodoContext.Provider value={{ state, addTodo, deleteTodo,toggleAllTodo, toggleTodo, editTodo, clearTodo, filter, setFilter, filteredTodos: applyFilter()}}>
+        <TodoContext.Provider value={{ deleteAllTodo, state, addTodo, deleteTodo,toggleAllTodo, toggleTodo, editTodo, clearTodo, filter, setFilter, filteredTodos: applyFilter()}}>
             {children}
         </TodoContext.Provider>
   )

@@ -14,11 +14,11 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 
 export default function FormComponent() {
-  const { editTodo, addTodo, deleteTodo, toggleTodo,toggleAllTodo, filteredTodos } = useContext(TodoContext);
+  const { editTodo, addTodo, deleteTodo, deleteAllTodo, toggleTodo,toggleAllTodo, filteredTodos } = useContext(TodoContext);
   const [validation, setValidation] = useState(false)
   const [editValidation, setEditValidation] = useState(false)
   const [editingTodoId, setEditingTodoId] = useState(null);
-  const [tools, setTools] = useState(false)
+  const [visibleToolsId, setVisibleToolsId] = useState(null);
   
 
 
@@ -66,6 +66,27 @@ export default function FormComponent() {
     });
 
   };
+  const handleClearAllTodo = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteAllTodo();
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
+    });
+
+  };
 
   const handleToggleTodo = (todoId) => {
     toggleTodo(todoId);
@@ -74,17 +95,20 @@ export default function FormComponent() {
     toggleAllTodo();
   };
 
-const handleTools = () => {
-  setTools(!tools)
-}
+  const handleTools = (todoId) => {
+    setVisibleToolsId((prevId) => (prevId === todoId ? null : todoId));
+  };
 
   return (
     <main className="Main col-12 mx-auto">
       <section className="Section col-10 my-5 mx-auto">
       {filteredTodos.length > 0 ? 
       <div className="col-12 d-flex justify-content-between align-items-center">
-        <h1 className="mb-5">{filteredTodos.length} Tasks</h1>
+        <h1 className="mb-5">{filteredTodos.length} Task</h1>
+        <div className="d-flex gap-3">
         <ButtonComponent onClick={handleToggleAllTodo} border='1px solid #00A9FF' child='Mark all'/>
+        <ButtonComponent onClick={handleClearAllTodo} border='1px solid #00A9FF' child='Clear'/>
+        </div>
       </div> : 
       <h1 className="mt-5" style={{textAlign: 'center'}}>There are no task</h1>}
         <ol className="col-12 col-md-10 mx-auto">
@@ -116,11 +140,11 @@ const handleTools = () => {
                     </h3>
                     <div className="toolIcon">
                       <Checkbox  checked={todo.status} onChange={() => handleToggleTodo(todo.id)} />
-                      <IconButton onClick={handleTools} aria-label="delete">
+                      <IconButton onClick={() => handleTools(todo.id)} aria-label="delete">
                         <MoreVertIcon />
                       </IconButton>
                     </div>
-                    {tools && <div className="toolDiv">
+                    {visibleToolsId === todo.id && <div className="toolDiv">
                       <button onClick={handleTools} className="closeBtn">x</button>
                           <IconButton onClick={() => handleDeleteTodo(todo.id)} aria-label="delete">
                           <DeleteIcon />
