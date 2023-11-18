@@ -4,7 +4,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import { TodoContext } from "../reducer-context/context";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import Swal from 'sweetalert2'
 import '../form/Form.css'
 import ButtonComponent from "../button/Button";
@@ -19,10 +19,6 @@ export default function FormComponent() {
   const [editValidation, setEditValidation] = useState(false)
   const [editingTodoId, setEditingTodoId] = useState(null);
   const [visibleToolsId, setVisibleToolsId] = useState(null);
-  
-
-
-
   const handleAddTodo = (e) => {
     e.preventDefault();
     const todoText = e.target[0].value;
@@ -95,6 +91,21 @@ export default function FormComponent() {
     toggleAllTodo();
   };
 
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      const isInsideToolIcon = event.target.closest('.toolIcon');
+      const isInsideToolDiv = event.target.closest('.deleteBtn');
+      if (visibleToolsId && !isInsideToolIcon && !isInsideToolDiv) {
+        setVisibleToolsId(null);
+      }
+    };
+    document.addEventListener('click', handleOutsideClick);
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [visibleToolsId]);
+
+
   const handleTools = (todoId) => {
     setVisibleToolsId((prevId) => (prevId === todoId ? null : todoId));
   };
@@ -146,7 +157,7 @@ export default function FormComponent() {
                     </div>
                     {visibleToolsId === todo.id && <div className="toolDiv">
                       <button onClick={handleTools} className="closeBtn">x</button>
-                          <IconButton onClick={() => handleDeleteTodo(todo.id)} aria-label="delete">
+                          <IconButton className="deleteBtn" onClick={() => handleDeleteTodo(todo.id)} aria-label="delete">
                           <DeleteIcon />
                         </IconButton>
                         <IconButton onClick={() => setEditingTodoId(todo.id)} aria-label="delete">
